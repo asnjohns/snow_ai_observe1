@@ -114,33 +114,7 @@ Finds discrepancies between technically correct SQL and user expectations.
 
 ### Prerequisites
 
-1. **Permissions**: Ensure you have the necessary permissions on `CURSOR_DB` database
-2. **SnowSQL**: Install SnowSQL CLI (optional, for batch execution)
-3. **Grants**: Execute the grants in `AI_QUESTION_INSIGHTS/00_GRANT_PERMISSIONS.sql` as `ACCOUNTADMIN`
-
-### Installation
-
-#### Option 1: Execute All Scripts at Once (Recommended)
-
-```bash
-cd /Users/afeider/AI_SUCCESS_FEEDBACK
-./00_EXECUTE_ALL.sh
-```
-
-#### Option 2: Manual Execution
-
-Execute the SQL scripts in order:
-
-```sql
--- 1. Create tables
-@/Users/afeider/AI_SUCCESS_FEEDBACK/01_CREATE_TABLES.sql
-
--- 2. Create views
-@/Users/afeider/AI_SUCCESS_FEEDBACK/02_CREATE_VIEWS.sql
-
--- 3. Create procedures and functions
-@/Users/afeider/AI_SUCCESS_FEEDBACK/03_CREATE_PROCEDURES.sql
-```
+**Permissions**: Ensure you have the necessary permissions on `CURSOR_DB` database
 
 ### Verification
 
@@ -649,9 +623,9 @@ SELECT COUNT(*) FROM CURSOR_DB.AI_QUESTION_INSIGHTS.CORTEX_ANALYST_REQUEST_HISTO
 #### Issue: Permission denied errors
 **Solution:** Execute grants as ACCOUNTADMIN
 ```sql
-GRANT SELECT ON ALL VIEWS IN SCHEMA CURSOR_DB.AI_SUCCESS_FEEDBACK TO ROLE SVC_CURSOR_ROLE;
-GRANT USAGE ON ALL PROCEDURES IN SCHEMA CURSOR_DB.AI_SUCCESS_FEEDBACK TO ROLE SVC_CURSOR_ROLE;
-GRANT USAGE ON ALL FUNCTIONS IN SCHEMA CURSOR_DB.AI_SUCCESS_FEEDBACK TO ROLE SVC_CURSOR_ROLE;
+GRANT SELECT ON ALL VIEWS IN SCHEMA CURSOR_DB.AI_SUCCESS_FEEDBACK TO ROLE <ROLE>;
+GRANT USAGE ON ALL PROCEDURES IN SCHEMA CURSOR_DB.AI_SUCCESS_FEEDBACK TO ROLE <ROLE>;
+GRANT USAGE ON ALL FUNCTIONS IN SCHEMA CURSOR_DB.AI_SUCCESS_FEEDBACK TO ROLE <ROLE>;
 ```
 
 #### Issue: Procedure execution timeouts
@@ -713,7 +687,7 @@ ALTER WAREHOUSE <your_warehouse> SET WAREHOUSE_SIZE = 'LARGE';
 ## Support and Contribution
 
 ### Contact
-For questions or issues, contact the AI/ML team or data engineering team.
+For questions or issues, contact Ashley Feider.
 
 ### Enhancement Requests
 To request new features or insights:
@@ -731,7 +705,6 @@ To request new features or insights:
 ---
 
 **Last Updated:** November 13, 2025  
-**Author:** Cursor AI Assistant  
 **Database:** CURSOR_DB  
 **Schema:** AI_SUCCESS_FEEDBACK
 
