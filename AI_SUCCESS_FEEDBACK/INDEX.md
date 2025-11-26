@@ -4,77 +4,14 @@
 
 | File | Purpose | Status | Execute Order |
 |------|---------|--------|---------------|
-| **INDEX.md** | This file - navigation guide | ✅ | - |
-| **SETUP_SUMMARY.md** | Setup status and instructions | ✅ | Read First |
-| **README.md** | Complete documentation | ✅ | Read Second |
-| **00_EXECUTE_ALL.sh** | Bash script to execute all SQL | ✅ | Option 1 |
-| **execute_setup.py** | Python script to execute all SQL | ✅ | Option 2 |
-| **01_CREATE_TABLES.sql** | Table definitions (already executed) | ✅ Executed | - |
-| **02_CREATE_VIEWS.sql** | View definitions for 7 insights | ⏳ Ready | Execute 1st |
-| **03_CREATE_PROCEDURES.sql** | Procedures and functions | ⏳ Ready | Execute 2nd |
+| **INDEX.md** | This file - navigation guide | - |
+| **README.md** | Complete documentation | Read First |
+| **01_CREATE_TABLES.sql** | Table definitions | Execute 1st  |
+| **02_CREATE_VIEWS.sql** | View definitions for 7 insights | Execute 2nd |
+| **03_CREATE_PROCEDURES.sql** | Procedures and functions | Execute 3rd |
 
-## Directory Structure
 
-```
-/Users/afeider/
-├── AI_QUESTION_INSIGHTS/                  (Base schema files)
-│   ├── 00_GRANT_PERMISSIONS.sql          Execute as ACCOUNTADMIN first!
-│   └── 01_CREATE_VIEWS.sql               Enhanced base schema views
-│
-└── AI_SUCCESS_FEEDBACK/                   (New analytics schema)
-    ├── INDEX.md                           ← You are here
-    ├── SETUP_SUMMARY.md                   Current setup status
-    ├── README.md                          Complete documentation
-    ├── 00_EXECUTE_ALL.sh                  Bash execution script
-    ├── execute_setup.py                   Python execution script
-    ├── 01_CREATE_TABLES.sql               ✅ Already executed
-    ├── 02_CREATE_VIEWS.sql                ⏳ Execute next
-    └── 03_CREATE_PROCEDURES.sql           ⏳ Execute after views
-```
-
-## What Has Been Created in Snowflake
-
-### ✅ Completed
-- Schema: `CURSOR_DB.AI_SUCCESS_FEEDBACK`
-- 5 Tables:
-  * `PROBLEMATIC_SQL`
-  * `RESPONSE_STATUS_PATTERNS`
-  * `WARNING_ISSUES`
-  * `FEEDBACK_ANALYSIS`
-  * `SQL_QUALITY_DISCREPANCIES`
-
-### ⏳ Pending (SQL scripts ready, need execution)
-- 11 Views for 7 insights
-- 6 Stored Procedures
-- 2 Functions
-- 9 Enhanced views in AI_QUESTION_INSIGHTS schema
-
-## Execution Options
-
-### Option 1: SnowSQL (Recommended)
-```bash
-cd /Users/afeider/AI_QUESTION_INSIGHTS
-snowsql -f 00_GRANT_PERMISSIONS.sql -r ACCOUNTADMIN  # Execute as ACCOUNTADMIN
-snowsql -f 01_CREATE_VIEWS.sql                       # Execute as SVC_CURSOR_ROLE
-
-cd /Users/afeider/AI_SUCCESS_FEEDBACK
-snowsql -f 02_CREATE_VIEWS.sql
-snowsql -f 03_CREATE_PROCEDURES.sql
-```
-
-### Option 2: Python Script
-```bash
-cd /Users/afeider/AI_SUCCESS_FEEDBACK
-python3 execute_setup.py
-```
-
-### Option 3: Bash Script
-```bash
-cd /Users/afeider/AI_SUCCESS_FEEDBACK
-./00_EXECUTE_ALL.sh
-```
-
-### Option 4: Snowflake Web UI
+### Snowflake Web UI
 Copy and paste each SQL file's contents into a Snowflake worksheet and execute.
 
 ## The 7 Insights
@@ -89,27 +26,7 @@ Copy and paste each SQL file's contents into a Snowflake worksheet and execute.
 
 ## Quick Start (After Execution)
 
-```sql
--- Run initial analysis (7 days)
-CALL CURSOR_DB.AI_SUCCESS_FEEDBACK.SP_RUN_ALL_ANALYSES(7);
-
--- View problematic SQL
-SELECT * FROM CURSOR_DB.AI_SUCCESS_FEEDBACK.VW_PROBLEMATIC_SQL_ANALYSIS LIMIT 10;
-
--- View failure patterns
-SELECT * FROM CURSOR_DB.AI_SUCCESS_FEEDBACK.VW_RESPONSE_STATUS_FAILURES LIMIT 10;
-
--- View warning patterns
-SELECT * FROM CURSOR_DB.AI_SUCCESS_FEEDBACK.VW_WARNING_SUMMARY LIMIT 10;
-
--- View model feedback rates
-SELECT * FROM CURSOR_DB.AI_SUCCESS_FEEDBACK.VW_FEEDBACK_RATES_BY_MODEL;
-```
-
 ## File Descriptions
-
-### SETUP_SUMMARY.md
-Current status of the setup, what's been created, what needs to be executed, and troubleshooting.
 
 ### README.md
 Complete documentation including:
@@ -122,7 +39,7 @@ Complete documentation including:
 - Troubleshooting guide
 - Object reference
 
-### 01_CREATE_TABLES.sql (✅ Already Executed)
+### 01_CREATE_TABLES.sql 
 Creates 5 tracking tables:
 - PROBLEMATIC_SQL
 - RESPONSE_STATUS_PATTERNS
@@ -130,7 +47,7 @@ Creates 5 tracking tables:
 - FEEDBACK_ANALYSIS
 - SQL_QUALITY_DISCREPANCIES
 
-### 02_CREATE_VIEWS.sql (⏳ Ready to Execute)
+### 02_CREATE_VIEWS.sql 
 Creates 11 analytical views covering all 7 insights:
 - Insight 1: VW_PROBLEMATIC_SQL_ANALYSIS
 - Insight 2: VW_RESPONSE_STATUS_FAILURES, VW_STATUS_CODE_TRENDS
@@ -140,7 +57,7 @@ Creates 11 analytical views covering all 7 insights:
 - Insight 6: VW_COMPLEXITY_SATISFACTION_CORRELATION, VW_COMPLEXITY_SATISFACTION_SUMMARY
 - Insight 7: VW_CORRECTNESS_EXPECTATION_GAPS, VW_EXPECTATION_GAP_SUMMARY
 
-### 03_CREATE_PROCEDURES.sql (⏳ Ready to Execute)
+### 03_CREATE_PROCEDURES.sql 
 Creates 6 stored procedures and 2 functions:
 
 **Procedures:**
@@ -154,21 +71,6 @@ Creates 6 stored procedures and 2 functions:
 **Functions:**
 - FN_CALCULATE_SQL_COMPLEXITY(SQL_TEXT) - Returns complexity score
 - FN_CATEGORIZE_COMPLEXITY(COMPLEXITY_SCORE) - Returns SIMPLE/MODERATE/COMPLEX
-
-## Support Files
-
-### 00_EXECUTE_ALL.sh
-Bash script that:
-1. Validates SnowSQL is installed
-2. Executes all SQL files in order
-3. Reports success/failure
-
-### execute_setup.py
-Python script that:
-1. Connects to Snowflake
-2. Executes SQL files with proper delimiter handling
-3. Verifies object creation
-4. Reports detailed status
 
 ## Next Steps After Execution
 
@@ -200,7 +102,6 @@ Python script that:
 ## Questions or Issues?
 
 Refer to:
-- **SETUP_SUMMARY.md** for current status and troubleshooting
 - **README.md** for complete documentation and sample queries
 - Snowflake documentation: https://docs.snowflake.com/
 
