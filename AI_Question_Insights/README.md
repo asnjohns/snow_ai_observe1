@@ -672,7 +672,7 @@ $$;
 - All procedures include inline documentation
 
 ### Contact
-For questions or issues with this framework, please contact your Snowflake administrator or data engineering team.
+For questions or issues with this framework, please contact Ashley Feider.
 
 ---
 
