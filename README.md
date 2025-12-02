@@ -1,4 +1,4 @@
-# snow_ai_observe1
+# Snowflake AI Observability Experimentation
 
 # AI Question Insights
 
